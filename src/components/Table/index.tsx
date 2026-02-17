@@ -16,6 +16,7 @@ export function Table({ activities, onRemove }: TableProps) {
 
   const rows = activities.map((i, idx) => (
     <tr key={i.name}>
+      <td>{i.type}</td>
       <td>{i.name}</td>
       <td>{i.duration}</td>
       <td>{i.location}</td>

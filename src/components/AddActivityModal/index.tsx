@@ -5,7 +5,8 @@ import { XIcon } from "@phosphor-icons/react";
 import type Activity from "../../models/Place";
 import Button from "../Button";
 import Input from "../Input";
-import { ActivityForm, Dialog, Header, Label, Title } from "./style";
+import { ActivityForm, Dialog, Header, Label, Select, Title } from "./style";
+import type { ActivityType } from "../../models/ActivityType";
 
 interface AddActivityModalProps {
   onAdd: (activity: Activity) => void;
@@ -13,6 +14,7 @@ interface AddActivityModalProps {
 
 export default function AddActivityModal({ onAdd }: AddActivityModalProps) {
   const [data, setData] = useState<Record<keyof Activity, string>>({
+    type: "",
     name: "",
     duration: "",
     location: "",
@@ -23,7 +25,7 @@ export default function AddActivityModal({ onAdd }: AddActivityModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   function handleChange(
-    e: ChangeEvent<HTMLInputElement>,
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>,
     prop: keyof Activity,
   ) {
     if (e.target == null) return;
@@ -38,6 +40,7 @@ export default function AddActivityModal({ onAdd }: AddActivityModalProps) {
     try {
       const activity: Activity = {
         ...data,
+        type: data.type as ActivityType,
         duration: timestring(data.duration, "minutes"),
         price: parseFloat(data.price),
       };
@@ -62,6 +65,15 @@ export default function AddActivityModal({ onAdd }: AddActivityModalProps) {
         </Button>
       </Header>
       <ActivityForm onSubmit={handleSubmit}>
+        <div>
+          <Label>Type</Label>
+          <Select onChange={(e) => handleChange(e, "type")}>
+            <option value="Restaurant">Restaurant</option>
+            <option value="Beach">Beach</option>
+            <option value="Landmark">Landmark</option>
+            <option value="Spot">Spot</option>
+          </Select>
+        </div>
         <Label>
           Name
           <Input

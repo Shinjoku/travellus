@@ -56,3 +56,10 @@ export const Header = styled.div`
   align-items: center;
   padding-inline: 1.5rem;
 `;
+
+export const Select = styled.select`
+  width: 200px;
+  height: 28px;
+  font-size: medium;
+  margin-inline: auto;
+`;
