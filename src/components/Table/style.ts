@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ActivityTable = styled.table`
+export const StyledTable = styled.table`
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;

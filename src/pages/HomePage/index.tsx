@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Table } from "../../components/Table";
 import { Container, ModalButton, PortButton } from "./style";
 import type Activity from "../../models/Place";
 import AddActivityModal from "../../components/AddActivityModal";
 import { ArrowDownIcon, ArrowUpIcon } from "@phosphor-icons/react";
+import { ActivityTable } from "../../components/Table";
 
 export default function HomePage() {
   const [activities, setActivities] = useState<Activity[] | null>(null);
@@ -61,7 +61,7 @@ export default function HomePage() {
       </ModalButton>
 
       {activities != null && activities.length > 0 ? (
-        <Table
+        <ActivityTable
           activities={activities}
           onRemove={(idx: number) => removeActivity(idx)}
         />

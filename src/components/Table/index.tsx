@@ -1,20 +1,44 @@
-import { TrashIcon } from "@phosphor-icons/react";
+import { ArrowDownIcon, TrashIcon } from "@phosphor-icons/react";
 
 import type Activity from "../../models/Place";
-import { ActivityTable } from "./style";
+import { StyledTable } from "./style";
 import { formatCurrency, capitalize } from "../../util";
+import { useEffect, useState } from "react";
 
-interface TableProps {
+interface ActivityTableProps {
   activities: Activity[];
   onRemove: (idx: number) => void;
 }
 
-export function Table({ activities, onRemove }: TableProps) {
-  const headers = Object.keys(activities[0]).map((colName) => (
-    <th key={colName}>{capitalize(colName)}</th>
+export function ActivityTable({ activities, onRemove }: ActivityTableProps) {
+  const [tableActivities, setTableActivities] = useState(activities);
+  const [sortAsc, setSortAsc] = useState(true);
+
+  useEffect(() => {
+    setTableActivities(activities);
+  }, [activities]);
+
+  function handleSort(col: keyof Activity) {
+    setTableActivities(
+      activities.toSorted((i: Activity, x: Activity) =>
+        sortAsc
+          ? i[col].toString().localeCompare(x[col].toString())
+          : x[col].toString().localeCompare(i[col].toString()),
+      ),
+    );
+
+    setSortAsc(!sortAsc);
+  }
+
+  const headers = Object.keys(tableActivities[0]).map((colName) => (
+    <th key={colName} onClick={() => handleSort(colName as keyof Activity)}>
+      {capitalize(colName)}
+      &nbsp;
+      <ArrowDownIcon />
+    </th>
   ));
 
-  const rows = activities.map((i, idx) => (
+  const rows = tableActivities.map((i, idx) => (
     <tr key={i.name}>
       <td>{i.type}</td>
       <td>{i.name}</td>
@@ -29,7 +53,7 @@ export function Table({ activities, onRemove }: TableProps) {
   ));
 
   return (
-    <ActivityTable>
+    <StyledTable>
       <thead>
         <tr>
           {headers}
@@ -37,6 +61,6 @@ export function Table({ activities, onRemove }: TableProps) {
         </tr>
       </thead>
       <tbody>{rows}</tbody>
-    </ActivityTable>
+    </StyledTable>
   );
 }
