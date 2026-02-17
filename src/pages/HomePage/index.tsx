@@ -3,7 +3,6 @@ import { Table } from "../../components/Table";
 import { Container, ExportButton, ModalButton } from "./style";
 import type Activity from "../../models/Place";
 import AddActivityModal from "../../components/AddActivityModal";
-import Button from "../../components/Button";
 
 export default function HomePage() {
   const [activities, setActivities] = useState<Activity[] | null>(null);
