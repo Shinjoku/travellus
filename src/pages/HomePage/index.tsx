@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Table } from "../../components/Table";
-import { Container, ExportButton, ModalButton } from "./style";
+import { Container, ModalButton, PortButton } from "./style";
 import type Activity from "../../models/Place";
 import AddActivityModal from "../../components/AddActivityModal";
+import { ArrowDownIcon, ArrowUpIcon } from "@phosphor-icons/react";
 
 export default function HomePage() {
   const [activities, setActivities] = useState<Activity[] | null>(null);
@@ -35,14 +36,25 @@ export default function HomePage() {
     });
   }
 
-  function exportActivities() {
-    navigator.clipboard.writeText(JSON.stringify(activities));
+  async function exportActivities() {
+    await navigator.clipboard.writeText(JSON.stringify(activities));
+  }
+
+  async function importActivities() {
+    setActivities(
+      JSON.parse(await navigator.clipboard.readText()) as Activity[],
+    );
   }
 
   return (
     <Container>
       <h1>Table of Activities</h1>
-      <ExportButton onClick={exportActivities}>Export</ExportButton>
+      <PortButton onClick={importActivities}>
+        Import <ArrowUpIcon />
+      </PortButton>
+      <PortButton onClick={exportActivities}>
+        Export <ArrowDownIcon />
+      </PortButton>
 
       <ModalButton command="show-modal" commandfor="my-dialog">
         Add Activity

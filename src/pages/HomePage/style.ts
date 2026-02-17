@@ -11,6 +11,6 @@ export const ModalButton = styled(Button)`
   margin-block: 1rem;
 `;
 
-export const ExportButton = styled(Button)`
+export const PortButton = styled(Button)`
   margin-right: 16px;
 `;
