@@ -1,4 +1,10 @@
-import { useRef, useState, type ChangeEvent, type SyntheticEvent } from "react";
+import {
+  useCallback,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type SyntheticEvent,
+} from "react";
 import timestring from "timestring";
 
 import type Activity from "../../models/Place";
@@ -24,6 +30,17 @@ export default function AddActivityModal({ id, onAdd }: AddActivityModalProps) {
   });
 
   const dialogRef = useRef<HTMLDialogElement>(null);
+
+  const reset = useCallback(() => {
+    setData({
+      type: "",
+      name: "",
+      duration: "",
+      location: "",
+      neighborhood: "",
+      price: "",
+    });
+  }, []);
 
   function handleChange(
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>,
@@ -54,11 +71,11 @@ export default function AddActivityModal({ id, onAdd }: AddActivityModalProps) {
   }
 
   return (
-    <Modal id={id} title="New activity" ref={dialogRef}>
+    <Modal id={id} title="New activity" ref={dialogRef} onClose={reset}>
       <ActivityForm onSubmit={handleSubmit}>
         <Label>
           Type
-          <select onChange={(e) => handleChange(e, "type")}>
+          <select value={data.type} onChange={(e) => handleChange(e, "type")}>
             <option value="">Select a type</option>
             <option value="Restaurant">Restaurant</option>
             <option value="Beach">Beach</option>
