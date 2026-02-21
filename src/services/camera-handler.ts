@@ -56,7 +56,6 @@ class CameraHandler {
   }: GetVideoFramesArgs) {
     const maxTimeMs = timestring(maxTime, "milliseconds");
     let elapsedTime = 0;
-    let frameIdx = 0;
     let startTime: number;
     const intervalMs = Math.floor(1000 / fps);
 
@@ -74,7 +73,6 @@ class CameraHandler {
 
         onFrame(frame, () => this.closeCamera());
         elapsedTime += performance.now() - startTime;
-        frameIdx++;
 
         if (elapsedTime > maxTimeMs) {
           this.closeCamera();
