@@ -1,16 +1,19 @@
+import { useEffect, useState } from "react";
 import { ArrowDownIcon, TrashIcon } from "@phosphor-icons/react";
 
 import type Activity from "../../models/Place";
-import { StyledTable } from "./style";
 import { formatCurrency, capitalize } from "../../util";
-import { useEffect, useState } from "react";
+import { ActionButton, Container } from "./style";
 
 interface ActivityTableProps {
   activities: Activity[];
   onRemove: (idx: number) => void;
 }
 
-export function ActivityTable({ activities, onRemove }: ActivityTableProps) {
+export default function ActivityTable({
+  activities,
+  onRemove,
+}: ActivityTableProps) {
   const [tableActivities, setTableActivities] = useState(activities);
   const [sortAsc, setSortAsc] = useState(true);
 
@@ -47,20 +50,24 @@ export function ActivityTable({ activities, onRemove }: ActivityTableProps) {
       <td>{i.neighborhood}</td>
       <td>{formatCurrency(i.price)}</td>
       <td>
-        <TrashIcon onClick={() => onRemove(idx)} />
+        <ActionButton icon onClick={() => onRemove(idx)}>
+          <TrashIcon />
+        </ActionButton>
       </td>
     </tr>
   ));
 
   return (
-    <StyledTable>
-      <thead>
-        <tr>
-          {headers}
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </StyledTable>
+    <Container>
+      <table>
+        <thead>
+          <tr>
+            {headers}
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    </Container>
   );
 }

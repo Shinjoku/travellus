@@ -1,18 +1,19 @@
 import { useRef, useState, type ChangeEvent, type SyntheticEvent } from "react";
 import timestring from "timestring";
-import { XIcon } from "@phosphor-icons/react";
 
 import type Activity from "../../models/Place";
+import type { ActivityType } from "../../models/ActivityType";
 import Button from "../Button";
 import Input from "../Input";
-import { ActivityForm, Dialog, Header, Label, Select, Title } from "./style";
-import type { ActivityType } from "../../models/ActivityType";
+import Modal from "../Modal";
+import { ActivityForm, Label } from "./style";
 
 interface AddActivityModalProps {
+  id: string;
   onAdd: (activity: Activity) => void;
 }
 
-export default function AddActivityModal({ onAdd }: AddActivityModalProps) {
+export default function AddActivityModal({ id, onAdd }: AddActivityModalProps) {
   const [data, setData] = useState<Record<keyof Activity, string>>({
     type: "",
     name: "",
@@ -53,27 +54,18 @@ export default function AddActivityModal({ onAdd }: AddActivityModalProps) {
   }
 
   return (
-    <Dialog id="my-dialog" ref={dialogRef}>
-      <Header>
-        <Title>New activity</Title>
-        <Button
-          icon
-          className="close-btn"
-          onClick={() => dialogRef.current?.close()}
-        >
-          <XIcon />
-        </Button>
-      </Header>
+    <Modal id={id} title="New activity" ref={dialogRef}>
       <ActivityForm onSubmit={handleSubmit}>
-        <div>
-          <Label>Type</Label>
-          <Select onChange={(e) => handleChange(e, "type")}>
+        <Label>
+          Type
+          <select onChange={(e) => handleChange(e, "type")}>
+            <option value="">Select a type</option>
             <option value="Restaurant">Restaurant</option>
             <option value="Beach">Beach</option>
             <option value="Landmark">Landmark</option>
             <option value="Spot">Spot</option>
-          </Select>
-        </div>
+          </select>
+        </Label>
         <Label>
           Name
           <Input
@@ -118,6 +110,6 @@ export default function AddActivityModal({ onAdd }: AddActivityModalProps) {
           Add Activity
         </Button>
       </ActivityForm>
-    </Dialog>
+    </Modal>
   );
 }

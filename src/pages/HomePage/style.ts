@@ -1,16 +1,25 @@
 import styled from "styled-components";
-import Button from "../../components/Button";
 
 export const Container = styled.div`
-  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  box-sizing: border-box;
   width: 100%;
-  height: 100dvh;
-`;
+  min-height: 100dvh;
+  padding: 1rem;
 
-export const ModalButton = styled(Button)`
-  margin-block: 1rem;
-`;
+  .btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-block: 1rem;
+  }
 
-export const PortButton = styled(Button)`
-  margin-right: 16px;
+  .no-activity {
+    color: #9e9e9e;
+  }
 `;
