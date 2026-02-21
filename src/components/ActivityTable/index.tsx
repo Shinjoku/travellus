@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { ArrowDownIcon, TrashIcon } from "@phosphor-icons/react";
 
-import type Activity from "../../models/Place";
-import { formatCurrency, capitalize } from "../../util";
+import type Activity from "@/models/Place";
+import { formatCurrency, capitalize } from "@/util";
 import { ActionButton, Container } from "./style";
 
 interface ActivityTableProps {

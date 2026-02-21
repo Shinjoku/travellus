@@ -1,13 +1,13 @@
 import { useCallback } from "react";
 import { ArrowDownIcon, ArrowUpIcon } from "@phosphor-icons/react";
 
-import type Activity from "../../models/Place";
-import AddActivityModal from "../../components/AddActivityModal";
-import ActivityTable from "../../components/ActivityTable";
-import ExportModal from "../../components/ExportModal";
-import Button from "../../components/Button";
-import ImportModal from "../../components/ImportModal";
-import useLocalStorageState from "../../hooks/useLocalStorageState";
+import type Activity from "@/models/Place";
+import AddActivityModal from "@/components/AddActivityModal";
+import ActivityTable from "@/components/ActivityTable";
+import ExportModal from "@/components/ExportModal";
+import Button from "@/components/Button";
+import ImportModal from "@/components/ImportModal";
+import useLocalStorageState from "@/hooks/useLocalStorageState";
 import { Container } from "./style";
 
 export default function HomePage() {

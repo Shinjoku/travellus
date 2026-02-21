@@ -1,9 +1,9 @@
 import { useCallback, useRef, useState } from "react";
 import { ScanIcon, CopyIcon, CheckIcon } from "@phosphor-icons/react";
 
-import QrCodeHandler from "../../services/qr-code-handler";
-import ActivityConverter from "../../services/activity-converter";
-import type Activity from "../../models/Place";
+import QrCodeHandler from "@/services/qr-code-handler";
+import ActivityConverter from "@/services/activity-converter";
+import type Activity from "@/models/Place";
 import Message from "../Message";
 import Button from "../Button";
 import { ButtonContainer, Container } from "./style";

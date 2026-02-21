@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 
-import QrCodeHandler from "../../services/qr-code-handler";
-import CameraHandler from "../../services/camera-handler";
+import QrCodeHandler from "@/services/qr-code-handler";
+import CameraHandler from "@/services/camera-handler";
 import Message from "../Message";
 import { Container } from "./style";
 
@@ -11,7 +11,11 @@ interface QrCodeScannerProps {
   maxTimeScanning: string;
 }
 
-function QrCodeScanner({ onScan, onTimeout, maxTimeScanning }: QrCodeScannerProps) {
+function QrCodeScanner({
+  onScan,
+  onTimeout,
+  maxTimeScanning,
+}: QrCodeScannerProps) {
   const [error, setError] = useState("");
 
   const videoRef = useRef<HTMLVideoElement>(null);
