@@ -64,11 +64,19 @@ function ImportModal({ id, onData }: ImportModalProps) {
     convertAndEmitData(csv, "clipboard");
   }, [convertAndEmitData, reset]);
 
+  const importFromQrData = useCallback(
+    (qrData: string) => {
+      convertAndEmitData(qrData, "qr-code");
+      setRenderScanner(false);
+    },
+    [convertAndEmitData],
+  );
+
   return (
     <Modal id={id} title="Import activities" onClose={reset}>
       {renderScanner && (
         <QrCodeScanner
-          onScan={(data) => convertAndEmitData(data, "qr-code")}
+          onScan={importFromQrData}
           onTimeout={timeoutScanning}
           maxTimeScanning={maxTimeScanning}
         />
