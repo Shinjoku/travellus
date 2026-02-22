@@ -1,7 +1,7 @@
 import type Activity from "../models/Place";
 
 class ActivityConverter {
-  static separatorCharacter: string = ",";
+  static separatorCharacter: string = ";";
 
   static convertToCSV(activities: Activity[]): string {
     const csvKeys = Object.keys(activities[0]) as (keyof Activity)[];
