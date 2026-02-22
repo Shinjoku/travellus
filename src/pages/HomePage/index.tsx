@@ -62,7 +62,7 @@ export default function HomePage() {
           <ExportModal id="show-qrcode-modal" data={activities} />
         </>
       ) : (
-        <p className="no-activity">Nenhuma atividade ainda! :c</p>
+        <p className="no-activity">No activities yet! :c</p>
       )}
 
       <AddActivityModal id="activity-modal" onAdd={addActivity} />
