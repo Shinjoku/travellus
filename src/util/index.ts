@@ -8,3 +8,7 @@ export function formatCurrency(value: number): string {
 export function capitalize(str: string): string {
   return str[0].toUpperCase() + str.substring(1);
 }
+
+export function generateId() {
+  return crypto.randomUUID();
+}

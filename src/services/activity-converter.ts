@@ -1,4 +1,4 @@
-import type Activity from "../models/Place";
+import type Activity from "../models/Activity";
 
 class ActivityConverter {
   static separatorCharacter: string = ";";
@@ -22,6 +22,7 @@ class ActivityConverter {
     if (!lines || lines.length === 0) throw new Error("No records found");
 
     const validKeys: (keyof Activity)[] = [
+      "id",
       "type",
       "duration",
       "location",

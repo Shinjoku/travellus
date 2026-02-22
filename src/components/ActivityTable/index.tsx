@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { ArrowDownIcon, TrashIcon } from "@phosphor-icons/react";
 
-import type Activity from "@/models/Place";
+import type Activity from "@/models/Activity";
 import { formatCurrency, capitalize } from "@/util";
 import { ActionButton, Container } from "./style";
 
 interface ActivityTableProps {
   activities: Activity[];
-  onRemove: (idx: number) => void;
+  onRemove: (id: Activity["id"]) => void;
 }
 
 export default function ActivityTable({
@@ -41,16 +41,16 @@ export default function ActivityTable({
     </th>
   ));
 
-  const rows = tableActivities.map((i, idx) => (
-    <tr key={i.name}>
-      <td>{i.type}</td>
-      <td>{i.name}</td>
-      <td>{i.duration}</td>
-      <td>{i.location}</td>
-      <td>{i.neighborhood}</td>
-      <td>{formatCurrency(i.price)}</td>
+  const rows = tableActivities.map((activity) => (
+    <tr key={activity.id}>
+      <td>{activity.type}</td>
+      <td>{activity.name}</td>
+      <td>{activity.duration}</td>
+      <td>{activity.location}</td>
+      <td>{activity.neighborhood}</td>
+      <td>{formatCurrency(activity.price)}</td>
       <td>
-        <ActionButton icon onClick={() => onRemove(idx)}>
+        <ActionButton icon onClick={() => onRemove(activity.id)}>
           <TrashIcon />
         </ActionButton>
       </td>

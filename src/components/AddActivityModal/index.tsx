@@ -1,5 +1,6 @@
 import {
   useCallback,
+  useMemo,
   useRef,
   useState,
   type ChangeEvent,
@@ -7,12 +8,13 @@ import {
 } from "react";
 import timestring from "timestring";
 
-import type Activity from "../../models/Place";
+import type Activity from "../../models/Activity";
 import type { ActivityType } from "../../models/ActivityType";
 import Button from "../Button";
 import Input from "../Input";
 import Modal from "../Modal";
 import { ActivityForm, Label } from "./style";
+import { generateId } from "@/util";
 
 interface AddActivityModalProps {
   id: string;
@@ -20,27 +22,25 @@ interface AddActivityModalProps {
 }
 
 export default function AddActivityModal({ id, onAdd }: AddActivityModalProps) {
-  const [data, setData] = useState<Record<keyof Activity, string>>({
-    type: "",
-    name: "",
-    duration: "",
-    location: "",
-    neighborhood: "",
-    price: "",
-  });
-
-  const dialogRef = useRef<HTMLDialogElement>(null);
-
-  const reset = useCallback(() => {
-    setData({
+  const defaultActivityValue = useMemo(
+    () => ({
+      id: "",
       type: "",
       name: "",
       duration: "",
       location: "",
       neighborhood: "",
       price: "",
-    });
-  }, []);
+    }),
+    [],
+  );
+
+  const [data, setData] =
+    useState<Record<keyof Activity, string>>(defaultActivityValue);
+
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  const reset = useCallback(() => setData(defaultActivityValue), []);
 
   function handleChange(
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>,
@@ -58,6 +58,7 @@ export default function AddActivityModal({ id, onAdd }: AddActivityModalProps) {
     try {
       const activity: Activity = {
         ...data,
+        id: generateId(),
         type: data.type as ActivityType,
         duration: timestring(data.duration, "minutes"),
         price: parseFloat(data.price),

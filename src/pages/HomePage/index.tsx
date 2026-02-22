@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { ArrowDownIcon, ArrowUpIcon } from "@phosphor-icons/react";
 
-import type Activity from "@/models/Place";
+import type Activity from "@/models/Activity";
 import AddActivityModal from "@/components/AddActivityModal";
 import ActivityTable from "@/components/ActivityTable";
 import ExportModal from "@/components/ExportModal";
@@ -25,10 +25,16 @@ export default function HomePage() {
   );
 
   const removeActivity = useCallback(
-    (idx: number) =>
-      setActivities((current) =>
-        current && current.length > 0 ? current.toSpliced(idx, 1) : [],
-      ),
+    (id: Activity["id"]) =>
+      setActivities((currentList) => {
+        if (!currentList) return [];
+
+        const idx = currentList.findIndex((activity) => activity.id === id);
+
+        if (idx === -1) return currentList;
+
+        return currentList.toSpliced(idx, 1);
+      }),
     [],
   );
 
@@ -54,7 +60,7 @@ export default function HomePage() {
         <>
           <ActivityTable
             activities={activities}
-            onRemove={(idx: number) => removeActivity(idx)}
+            onRemove={(id) => removeActivity(id)}
           />
           <ExportModal id="show-qrcode-modal" data={activities} />
         </>
