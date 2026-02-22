@@ -60,7 +60,7 @@ export default function AddActivityModal({ id, onAdd }: AddActivityModalProps) {
         ...data,
         id: generateId(),
         type: data.type as ActivityType,
-        duration: timestring(data.duration, "minutes"),
+        duration: timestring(data.duration, "ms"),
         price: parseFloat(data.price),
       };
 
@@ -76,7 +76,12 @@ export default function AddActivityModal({ id, onAdd }: AddActivityModalProps) {
       <ActivityForm onSubmit={handleSubmit}>
         <Label>
           Type
-          <select value={data.type} onChange={(e) => handleChange(e, "type")}>
+          <select
+            name="type"
+            required
+            value={data.type}
+            onChange={(e) => handleChange(e, "type")}
+          >
             <option value="">Select a type</option>
             <option value="Restaurant">Restaurant</option>
             <option value="Beach">Beach</option>
@@ -87,6 +92,9 @@ export default function AddActivityModal({ id, onAdd }: AddActivityModalProps) {
         <Label>
           Name
           <Input
+            name="name"
+            autoComplete="off"
+            required
             value={data.name}
             onChange={(e) => handleChange(e, "name")}
             placeholder="Poteito Lanches"
@@ -95,6 +103,8 @@ export default function AddActivityModal({ id, onAdd }: AddActivityModalProps) {
         <Label>
           Location
           <Input
+            name="location"
+            required
             value={data.location}
             onChange={(e) => handleChange(e, "location")}
             placeholder="R. Salame Frito, 420"
@@ -103,6 +113,8 @@ export default function AddActivityModal({ id, onAdd }: AddActivityModalProps) {
         <Label>
           Duration
           <Input
+            name="duration"
+            required
             value={data.duration}
             onChange={(e) => handleChange(e, "duration")}
             placeholder="i.e: 1h 2m"
@@ -111,6 +123,8 @@ export default function AddActivityModal({ id, onAdd }: AddActivityModalProps) {
         <Label>
           Neighborhood
           <Input
+            name="neighborhood"
+            required
             value={data.neighborhood}
             onChange={(e) => handleChange(e, "neighborhood")}
             placeholder="Pretty Place™"
@@ -119,9 +133,11 @@ export default function AddActivityModal({ id, onAdd }: AddActivityModalProps) {
         <Label>
           Price
           <Input
+            name="price"
+            required
             value={data.price}
             onChange={(e) => handleChange(e, "price")}
-            placeholder="R$ ∞"
+            placeholder="49.99"
           />
         </Label>
         <Button className="submit-btn" type="submit">
