@@ -50,6 +50,7 @@ function ImportModal({ id, onData }: ImportModalProps) {
         const activities = ActivityConverter.revertToArray(csv);
         onData(activities);
         setSuccess(successType);
+        setRenderScanner(false);
       } catch (err) {
         setError(`Couldn't import: ${(err as Error).message}`);
       }
