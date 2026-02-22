@@ -29,7 +29,7 @@ function ExportModal({ id, data }: ExportModalProps) {
     const csvData = ActivityConverter.convertToCSV(data);
     await navigator.clipboard.writeText(csvData);
     setClipboardSuccess(true);
-  }, []);
+  }, [data, reset]);
 
   const generateQrCode = useCallback(async () => {
     if (!canvasRef.current) return;
@@ -44,7 +44,7 @@ function ExportModal({ id, data }: ExportModalProps) {
       console.error("Unable to generate QR code.", error);
       setError("Unable to generate QR code >:(");
     }
-  }, [canvasRef]);
+  }, [canvasRef, data, reset]);
 
   return (
     <Container id={id} title="Export activities" onClose={reset}>

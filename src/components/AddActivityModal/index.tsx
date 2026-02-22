@@ -22,7 +22,7 @@ interface AddActivityModalProps {
 }
 
 export default function AddActivityModal({ id, onAdd }: AddActivityModalProps) {
-  const defaultActivityValue = useMemo(
+  const defaultActivityValue = useMemo<Record<keyof Activity, string>>(
     () => ({
       id: "",
       type: "",
@@ -35,12 +35,14 @@ export default function AddActivityModal({ id, onAdd }: AddActivityModalProps) {
     [],
   );
 
-  const [data, setData] =
-    useState<Record<keyof Activity, string>>(defaultActivityValue);
+  const [data, setData] = useState(defaultActivityValue);
 
   const dialogRef = useRef<HTMLDialogElement>(null);
 
-  const reset = useCallback(() => setData(defaultActivityValue), []);
+  const reset = useCallback(
+    () => setData(defaultActivityValue),
+    [defaultActivityValue],
+  );
 
   function handleChange(
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>,

@@ -29,16 +29,10 @@ function ImportModal({ id, onData }: ImportModalProps) {
     setScanTimedOut(false);
   }, []);
 
-  const importFromClipboard = useCallback(async () => {
-    reset();
-    const csv = await navigator.clipboard.readText();
-    convertAndEmitData(csv, "clipboard");
-  }, []);
-
   const startScanning = useCallback(() => {
     reset();
     setRenderScanner(true);
-  }, []);
+  }, [reset]);
 
   const timeoutScanning = useCallback(() => {
     setScanTimedOut(true);
@@ -60,8 +54,14 @@ function ImportModal({ id, onData }: ImportModalProps) {
         setError(`Couldn't import: ${(err as Error).message}`);
       }
     },
-    [],
+    [onData],
   );
+
+  const importFromClipboard = useCallback(async () => {
+    reset();
+    const csv = await navigator.clipboard.readText();
+    convertAndEmitData(csv, "clipboard");
+  }, [convertAndEmitData, reset]);
 
   return (
     <Modal id={id} title="Import activities" onClose={reset}>

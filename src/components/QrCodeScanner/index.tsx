@@ -65,7 +65,7 @@ function QrCodeScanner({
     return () => {
       if (cameraHandler) cameraHandler.closeCamera();
     };
-  }, [videoRef, canvasRef]);
+  }, [videoRef, canvasRef, maxTimeScanning, onScan, onTimeout]);
 
   return (
     <Container>

@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { ArrowDownIcon, ArrowUpIcon } from "@phosphor-icons/react";
 
 import type Activity from "@/models/Activity";
@@ -13,7 +13,7 @@ import { Container } from "./style";
 export default function HomePage() {
   const [activities, setActivities] = useLocalStorageState<Activity[]>({
     storageKey: "activities",
-    initialValue: [],
+    initialValue: useMemo(() => [], []),
   });
 
   const addActivity = useCallback(
@@ -21,7 +21,7 @@ export default function HomePage() {
       setActivities((current) =>
         current ? [...current, activity] : [activity],
       ),
-    [],
+    [setActivities],
   );
 
   const removeActivity = useCallback(
@@ -35,7 +35,7 @@ export default function HomePage() {
 
         return currentList.toSpliced(idx, 1);
       }),
-    [],
+    [setActivities],
   );
 
   return (
@@ -58,24 +58,15 @@ export default function HomePage() {
       </div>
       {activities != null && activities.length > 0 ? (
         <>
-          <ActivityTable
-            activities={activities}
-            onRemove={(id) => removeActivity(id)}
-          />
+          <ActivityTable activities={activities} onRemove={removeActivity} />
           <ExportModal id="show-qrcode-modal" data={activities} />
         </>
       ) : (
         <p className="no-activity">Nenhuma atividade ainda! :c</p>
       )}
 
-      <AddActivityModal
-        id="activity-modal"
-        onAdd={(a: Activity) => addActivity(a)}
-      />
-      <ImportModal
-        id="scan-qrcode-modal"
-        onData={(data) => setActivities(data)}
-      />
+      <AddActivityModal id="activity-modal" onAdd={addActivity} />
+      <ImportModal id="scan-qrcode-modal" onData={setActivities} />
     </Container>
   );
 }
