@@ -16,10 +16,14 @@ export function generateId() {
 }
 
 // receives minutes and turns into `${hours}h ${minutes}m`
-export function getTimeString(timeMs: number) {
-  const fullHours = Math.floor(timestring(timeMs, "h"));
+export function getTimeString(timeMins: number) {
+  const SEC = 1000;
+  const MIN = 60 * SEC;
+  const HOUR = 60 * MIN;
+
+  const fullHours = Math.floor(timestring(timeMins * MIN, "h"));
   const fullMinutes = Math.floor(
-    timestring(timeMs - fullHours * 60 * 60 * 1000, "m"),
+    timestring(timeMins * MIN - fullHours * HOUR, "m"),
   );
 
   let str = "";
@@ -27,5 +31,6 @@ export function getTimeString(timeMs: number) {
   if (fullHours > 0) str += `${fullHours}h`;
   if (fullMinutes > 0) str += `${fullMinutes}m`;
 
+  console.log(fullMinutes);
   return str;
 }

@@ -86,7 +86,7 @@ class ActivityConverter {
           ...obj,
           id: obj.id as UUID,
           type: obj.type as ActivityType,
-          duration: timestring(obj.duration, "ms"),
+          duration: timestring(obj.duration, "m"),
           price: parseFloat(obj.price),
         });
       } catch (err) {

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.dialog`
   width: 85%;
-  max-width: 500px;
+  max-width: 600px;
   border: none;
   border-radius: 1rem;
   padding-block: 1.5rem;

@@ -7,6 +7,7 @@ export const Container = styled(Modal)`
     display: none;
     margin-inline: auto;
     margin-block: 1rem;
+    max-width: 100%;
   }
 `;
 
