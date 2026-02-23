@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type Activity from "@/models/Activity";
-import { Container } from "./style";
 import { ActivityCard } from "../ActivityCard";
+import { Container } from "./style";
 
 interface ActivityDeckProps {
   activities: Activity[];
@@ -41,7 +41,7 @@ export function ActivityDeck({ activities, onRemove }: ActivityDeckProps) {
   // }
 
   const cards = listActivities.map((a) => (
-    <ActivityCard activity={a} onRemove={onRemove} />
+    <ActivityCard key={a.id} activity={a} onRemove={onRemove} />
   ));
 
   return (
