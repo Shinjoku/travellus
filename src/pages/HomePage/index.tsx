@@ -3,12 +3,12 @@ import { ArrowDownIcon, ArrowUpIcon } from "@phosphor-icons/react";
 
 import type Activity from "@/models/Activity";
 import AddActivityModal from "@/components/AddActivityModal";
-import ActivityTable from "@/components/ActivityTable";
 import ExportModal from "@/components/ExportModal";
 import Button from "@/components/Button";
 import ImportModal from "@/components/ImportModal";
 import useLocalStorageState from "@/hooks/useLocalStorageState";
 import { Container } from "./style";
+import { ActivityDeck } from "@/components/ActivityDeck";
 
 export default function HomePage() {
   const [activities, setActivities] = useLocalStorageState<Activity[]>({
@@ -40,7 +40,7 @@ export default function HomePage() {
 
   return (
     <Container>
-      <h1>Table of Activities</h1>
+      <h1>Activities</h1>
       <div className="btn-group">
         <Button command="show-modal" commandfor="scan-qrcode-modal">
           Import <ArrowUpIcon />
@@ -56,9 +56,17 @@ export default function HomePage() {
           Add Activity
         </Button>
       </div>
-      {activities != null && activities.length > 0 ? (
+      {/* {activities != null && activities.length > 0 ? (
         <>
           <ActivityTable activities={activities} onRemove={removeActivity} />
+          <ExportModal id="show-qrcode-modal" data={activities} />
+        </>
+      ) : (
+        <p className="no-activity">No activities yet! :c</p>
+      )} */}
+      {activities != null && activities.length > 0 ? (
+        <>
+          <ActivityDeck activities={activities} onRemove={removeActivity} />
           <ExportModal id="show-qrcode-modal" data={activities} />
         </>
       ) : (

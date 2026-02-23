@@ -1,3 +1,10 @@
+import type { ActivityType } from "@/models/ActivityType";
+import {
+  IslandIcon,
+  MapPinIcon,
+  PanoramaIcon,
+  PizzaIcon,
+} from "@phosphor-icons/react";
 import timestring from "timestring";
 
 export function formatCurrency(value: number): string {
@@ -31,6 +38,18 @@ export function getTimeString(timeMins: number) {
   if (fullHours > 0) str += `${fullHours}h`;
   if (fullMinutes > 0) str += `${fullMinutes}m`;
 
-  console.log(fullMinutes);
   return str;
+}
+
+export function getActivityTypeIcon(type: ActivityType) {
+  switch (type) {
+    case "Beach":
+      return <IslandIcon size={32} color="#dfc365" />;
+    case "Landmark":
+      return <PanoramaIcon size={32} color="#5d9946" />;
+    case "Restaurant":
+      return <PizzaIcon size={32} color="#d88a31" />;
+    case "Spot":
+      return <MapPinIcon size={32} color="#aa4e4e" />;
+  }
 }

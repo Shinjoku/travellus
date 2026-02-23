@@ -10,7 +10,6 @@ class ActivityConverter {
   static convertToCSV(activities: Activity[]): string {
     const csvKeys = Object.keys(activities[0]) as (keyof Activity)[];
     let csvStr = csvKeys.join(ActivityConverter.separatorCharacter) + "\n";
-    console.log(csvStr);
 
     csvStr += activities
       .map((activity) =>
