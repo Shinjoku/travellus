@@ -10,18 +10,20 @@ class ActivityConverter {
   static convertToCSV(activities: Activity[]): string {
     const csvKeys = Object.keys(activities[0]) as (keyof Activity)[];
     let csvStr = csvKeys.join(ActivityConverter.separatorCharacter) + "\n";
+    console.log(csvStr);
 
-    csvStr += activities.map((activity) =>
-      csvKeys
-        .map((key) => activity[key])
-        .join(ActivityConverter.separatorCharacter),
-    );
-
+    csvStr += activities
+      .map((activity) =>
+        csvKeys
+          .map((key) => activity[key])
+          .join(ActivityConverter.separatorCharacter),
+      )
+      .join("\n");
     return csvStr;
   }
 
   static revertToArray(csvContent: string): Activity[] {
-    const lines = csvContent.split(/\r?\n/);
+    const lines = csvContent.split(/\r?\n/g);
 
     if (!lines || lines.length === 0) throw new Error("No records found");
 
